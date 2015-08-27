@@ -128,15 +128,9 @@
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
-			<groupId>commons-codec</groupId>
-			<artifactId>commons-codec</artifactId>
-			<version>1.10</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.abstractj.kalium</groupId>
-			<artifactId>kalium</artifactId>
-			<version>0.4.1-SNAPSHOT</version>
+			<groupId>xdi2</groupId>
+			<artifactId>xdi2-crypto-ec25519</artifactId>
+			<version>0.8-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 	</dependencies>

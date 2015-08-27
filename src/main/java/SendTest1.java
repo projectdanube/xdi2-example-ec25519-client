@@ -5,7 +5,7 @@ import xdi2.client.impl.http.XDIHttpClient;
 import xdi2.client.util.XDIClientUtil;
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.features.linkcontracts.instance.GenericLinkContract;
-import xdi2.core.features.signatures.KeyPairSignature;
+import xdi2.core.security.sign.RSAStaticPrivateKeySignatureCreator;
 import xdi2.core.syntax.CloudNumber;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.discovery.XDIDiscoveryClient;
@@ -18,7 +18,7 @@ public class SendTest1 {
 
 	public static void main(String[] args) throws Exception {
 
-		XDIDiscoveryResult r = XDIDiscoveryClient.XDI2_NEUSTAR_PROD_DISCOVERY_CLIENT.discover(XDIAddress.create("=markus"));
+		XDIDiscoveryResult r = XDIDiscoveryClient.DEFAULT_DISCOVERY_CLIENT.discover(XDIAddress.create("=markus"));
 		PrivateKey priv = XDIClientUtil.retrieveSignaturePrivateKey(r.getCloudNumber(), r.getXdiEndpointUri(), "test11!!");
 
 		CloudNumber cloudNumber = r.getCloudNumber();
@@ -30,13 +30,13 @@ public class SendTest1 {
 		m.setLinkContractXDIAddress(GenericLinkContract.createGenericLinkContractXDIAddress(XDIAddress.create("=!:uuid:1111"), XDIAddress.create("$test"), null));
 		m.createGetOperation(XDIConstants.XDI_ADD_ROOT);
 
-		KeyPairSignature s = (KeyPairSignature) m.createSignature(KeyPairSignature.DIGEST_ALGORITHM_SHA, Integer.valueOf(256), KeyPairSignature.KEY_ALGORITHM_RSA, Integer.valueOf(2048), true);
-		s.sign(priv);
+		RSAStaticPrivateKeySignatureCreator sc = new RSAStaticPrivateKeySignatureCreator(priv);
+		sc.createSignature(m.getContextNode());
 
 		System.out.println("MESSAGE ENVELOPE: ");
 		System.out.println(me.getGraph().toString("XDI DISPLAY", null));
 
-		XDIClient client = new XDIHttpClient("http://localhost:9801/graph1");
+		XDIClient<?> client = new XDIHttpClient("http://localhost:9801/graph1");
 		MessagingResponse mr = client.send(me);
 
 		System.out.println("MESSAGE RESULT: ");

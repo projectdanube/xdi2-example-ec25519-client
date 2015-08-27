@@ -5,7 +5,9 @@ import xdi2.client.XDIClient;
 import xdi2.client.impl.http.XDIHttpClient;
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.features.linkcontracts.instance.GenericLinkContract;
-import xdi2.core.features.signatures.Signature;
+import xdi2.core.security.ec25519.sign.EC25519StaticPrivateKeySignatureCreator;
+import xdi2.core.security.ec25519.util.EC25519CloudNumberUtil;
+import xdi2.core.security.ec25519.util.EC25519KeyPairGenerator;
 import xdi2.core.syntax.CloudNumber;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.messaging.Message;
@@ -16,12 +18,12 @@ public class SendTest2 {
 
 	public static void main(String[] args) throws Exception {
 
-		byte[] pub = new byte[32], privpub = new byte[64];
+		byte[] publicKey = new byte[32], privateKey = new byte[64];
 
-		CryptoCloudNumberFactory.keys(pub, privpub);
-		System.out.println("ORIGINAL PUB: " + Hex.HEX.encode(pub));
+		EC25519KeyPairGenerator.generateEC25519KeyPair(publicKey, privateKey);
+		System.out.println("ORIGINAL PUB: " + Hex.HEX.encode(publicKey));
 
-		CloudNumber cloudNumber = CryptoCloudNumberFactory.create(pub);
+		CloudNumber cloudNumber = EC25519CloudNumberUtil.createEC25519CloudNumber(XDIConstants.CS_AUTHORITY_PERSONAL, publicKey);
 		System.out.println("ORIGINAL CN: " + cloudNumber);
 
 		MessageEnvelope me = new MessageEnvelope();
@@ -30,13 +32,13 @@ public class SendTest2 {
 		m.setLinkContractXDIAddress(GenericLinkContract.createGenericLinkContractXDIAddress(XDIAddress.create("=!:uuid:2222"), XDIAddress.create("$test"), null));
 		m.createGetOperation(XDIConstants.XDI_ADD_ROOT);
 
-		Signature<?, ?> s = m.createSignature(null, null, null, null, true);
-		Crypto.sign(s, privpub);
+		EC25519StaticPrivateKeySignatureCreator sc = new EC25519StaticPrivateKeySignatureCreator(privateKey);
+		sc.createSignature(m.getContextNode());
 
 		System.out.println("MESSAGE ENVELOPE: ");
 		System.out.println(me.getGraph().toString("XDI DISPLAY", null));
 
-		XDIClient client = new XDIHttpClient("http://localhost:9801/graph2");
+		XDIClient<?> client = new XDIHttpClient("http://localhost:9801/graph2");
 		MessagingResponse mr = client.send(me);
 
 		System.out.println("MESSAGE RESULT: ");
