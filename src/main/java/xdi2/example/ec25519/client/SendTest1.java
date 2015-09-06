@@ -1,3 +1,4 @@
+package xdi2.example.ec25519.client;
 import java.security.PrivateKey;
 
 import xdi2.client.XDIClient;
