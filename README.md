@@ -1,7 +1,7 @@
 <a href="http://projectdanube.org/" target="_blank"><img src="http://projectdanube.github.com/xdi2/images/projectdanube_logo.png" align="right"></a>
 <img src="http://projectdanube.github.com/xdi2/images/logo64.png"><br>
 
-Example XDI client using cid-1 cryptographic XDI numbers.
+Example XDI client using **cid-1** cryptographic XDI numbers.
 
 ### Information
 
