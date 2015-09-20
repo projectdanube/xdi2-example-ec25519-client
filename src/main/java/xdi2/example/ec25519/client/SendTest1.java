@@ -6,7 +6,7 @@ import xdi2.client.impl.http.XDIHttpClient;
 import xdi2.client.util.XDIClientUtil;
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.features.linkcontracts.instance.GenericLinkContract;
-import xdi2.core.security.sign.RSAStaticPrivateKeySignatureCreator;
+import xdi2.core.security.signature.create.RSAStaticPrivateKeySignatureCreator;
 import xdi2.core.syntax.CloudNumber;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.discovery.XDIDiscoveryClient;
