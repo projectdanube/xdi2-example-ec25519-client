@@ -6,7 +6,7 @@ import xdi2.client.XDIClient;
 import xdi2.client.impl.http.XDIHttpClient;
 import xdi2.core.constants.XDIConstants;
 import xdi2.core.features.linkcontracts.instance.GenericLinkContract;
-import xdi2.core.security.ec25519.sign.EC25519StaticPrivateKeySignatureCreator;
+import xdi2.core.security.ec25519.signature.create.EC25519StaticPrivateKeySignatureCreator;
 import xdi2.core.security.ec25519.util.EC25519CloudNumberUtil;
 import xdi2.core.security.ec25519.util.EC25519KeyPairGenerator;
 import xdi2.core.syntax.CloudNumber;
