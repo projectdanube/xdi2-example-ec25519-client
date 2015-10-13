@@ -19,7 +19,7 @@ public class SendTest2 {
 
 	public static void main(String[] args) throws Exception {
 
-		byte[] publicKey = new byte[32], privateKey = new byte[32];
+		byte[] publicKey = new byte[32], privateKey = new byte[64];
 
 		EC25519KeyPairGenerator.generateEC25519KeyPair(publicKey, privateKey);
 		System.out.println("ORIGINAL PUB: " + Hex.HEX.encode(publicKey));
