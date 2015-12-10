@@ -64,6 +64,10 @@ public class WebSocketSendTest {
 	static XDIAddress[] AGENT_LINKCONTRACT = new XDIAddress[2];
 	static XDIWebSocketClient[] agentWebSocketClient = new XDIWebSocketClient[2]; 
 
+	/*
+	 * Here we set up a link contract that allows the agent to talk to the cloud.
+	 * =bob (the cloud owner) creates these link contracts with his secret token.
+	 */
 	static void setupAgentLinkContract(int i) throws Exception {
 
 		EC25519KeyPairGenerator.generateEC25519KeyPair(AGENT_PUBLICKEY[i], AGENT_PRIVATEKEY[i]);
@@ -146,14 +150,14 @@ public class WebSocketSendTest {
 	public static void main(String[] args) throws Exception {
 
 		// =bob adds two agent link contracts to his cloud
-		setupAgentLinkContract(0);
+		setupAgentLinkContract(0);			// "connect to cloud"
 		setupAgentLinkContract(1);
 
 		// the two agents connect to =bob's cloud
 		connectWebSocket(0);
 		connectWebSocket(1);
 
-		// agent 0 set sup push link contract for itself
+		// agent 1 sets up push link contract for itself
 		setupAgentPushLinkContract(1);
 
 		// sleep a bit
