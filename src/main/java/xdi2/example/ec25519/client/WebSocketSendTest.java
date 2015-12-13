@@ -44,7 +44,7 @@ import xdi2.messaging.response.TransportMessagingResponse;
  * 
  * both AGENT 0 and AGENT 1 have root link contracts with =bob
  * both AGENT 0 and AGENT 1 have cid-1 cryptographic XDI numbers
- * e.g. =!:cid-1:x3DSCpf5KBaFTt5h6tDyTkXa6WLZZcCyUdzDQ1PfVx2ivj8DGkZ
+ * e.g. *!:cid-1:x3DSCpf5KBaFTt5h6tDyTkXa6WLZZcCyUdzDQ1PfVx2ivj8DGkZ
  * 
  * AGENT 1 has a $push link contract with =bob's endpoint
  * AGENT 0 will $set a new value for =bob's e-mail address
@@ -71,7 +71,7 @@ public class WebSocketSendTest {
 	static void setupAgentLinkContract(int i) throws Exception {
 
 		EC25519KeyPairGenerator.generateEC25519KeyPair(AGENT_PUBLICKEY[i], AGENT_PRIVATEKEY[i]);
-		AGENT_CLOUDNUMBER[i] = EC25519CloudNumberUtil.createEC25519CloudNumber(XDIConstants.CS_AUTHORITY_PERSONAL, AGENT_PUBLICKEY[i]);
+		AGENT_CLOUDNUMBER[i] = EC25519CloudNumberUtil.createEC25519CloudNumber(XDIConstants.CS_INSTANCE_UNORDERED, AGENT_PUBLICKEY[i]);
 
 		MessageEnvelope connectME = new MessageEnvelope();
 		Message connectM = connectME.createMessage(AGENT_CLOUDNUMBER[i].getXDIAddress());
