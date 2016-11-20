@@ -5,7 +5,7 @@ import org.abstractj.kalium.encoders.Hex;
 import xdi2.client.XDIClient;
 import xdi2.client.impl.http.XDIHttpClient;
 import xdi2.core.constants.XDIConstants;
-import xdi2.core.features.linkcontracts.instance.GenericLinkContract;
+import xdi2.core.features.linkcontracts.instance.RelationshipLinkContract;
 import xdi2.core.security.ec25519.signature.create.EC25519StaticPrivateKeySignatureCreator;
 import xdi2.core.security.ec25519.util.EC25519CloudNumberUtil;
 import xdi2.core.security.ec25519.util.EC25519KeyPairGenerator;
@@ -30,7 +30,7 @@ public class SendTest2 {
 		MessageEnvelope me = new MessageEnvelope();
 		Message m = me.createMessage(cloudNumber.getXDIAddress());
 		m.setToXDIAddress(XDIAddress.create("=!:uuid:2222"));
-		m.setLinkContractXDIAddress(GenericLinkContract.createGenericLinkContractXDIAddress(XDIAddress.create("=!:uuid:2222"), XDIAddress.create("$test"), null));
+		m.setLinkContractXDIAddress(RelationshipLinkContract.createRelationshipLinkContractXDIAddress(XDIAddress.create("=!:uuid:2222"), XDIAddress.create("$test"), null));
 		m.createGetOperation(XDIConstants.XDI_ADD_ROOT);
 
 		EC25519StaticPrivateKeySignatureCreator sc = new EC25519StaticPrivateKeySignatureCreator(privateKey);
